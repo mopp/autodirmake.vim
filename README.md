@@ -5,4 +5,4 @@ This is a Vim Plugin for making directory automatically when not exist file is s
     NeoBundle 'mopp/autodirmake.vim'
 
 ## from
-    [Vim-users.jp](http://vim-users.jp/2011/02/hack202/)
+[Vim-users.jp](http://vim-users.jp/2011/02/hack202/)
