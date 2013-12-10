@@ -14,24 +14,9 @@ let g:loaded_autodirmake = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-
-let g:autodirmake_is_confirm = get(g:, 'autodirmake_is_confirm', 1)
-
-
-function! s:make_dir(dir)
-    if !isdirectory(a:dir)
-        if (g:autodirmake_is_confirm == 1 && input(printf('"%s" does not exist. Create? [y/N]', a:dir)) !~? '^y\%[es]$')
-            return
-        endif
-
-        call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
-    endif
-endfunction
-
-
 augroup autodirmake
     autocmd!
-    autocmd BufWritePre * call s:make_dir(expand('<afile>:p:h'))
+    autocmd BufWritePre * call autodirmake#make_dir(expand('<afile>:p:h'))
 augroup END
 
 
