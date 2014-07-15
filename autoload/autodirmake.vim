@@ -17,6 +17,7 @@ let s:Prelude = s:V.import('Prelude')
 unlet s:V
 
 
+
 function! autodirmake#make_dir(dir)
     if !isdirectory(a:dir)
         if s:confirm(a:dir)
@@ -25,14 +26,17 @@ function! autodirmake#make_dir(dir)
     endif
 endfunction
 
+
 function! s:confirm(dir)
     if !g:autodirmake#is_confirm
         return 1
     endif
+
     let hl = g:autodirmake#msg_highlight
     if hl !=# '' && hl !=# 'None'
         execute 'echohl' hl
     endif
+
     try
         let prompt = '"%s" does not exist. Create? [y/N]'
         let maxlen = &columns - 1
@@ -41,8 +45,7 @@ function! s:confirm(dir)
         if strlen(abbrdir) > maxlen
             " footer_width: separator + filename
             let footer_width = strlen(fnamemodify(a:dir, ':t')) + 1
-            let abbrdir = s:Prelude.truncate_skipping(
-            \           abbrdir, maxlen - 3, footer_width, '...')
+            let abbrdir = s:Prelude.truncate_skipping(abbrdir, maxlen - 3, footer_width, '...')
         endif
         return input(printf(prompt, abbrdir)) =~? '^y\%[es]$'
     finally
@@ -51,6 +54,7 @@ function! s:confirm(dir)
         endif
     endtry
 endfunction
+
 
 
 let &cpo = s:save_cpo
