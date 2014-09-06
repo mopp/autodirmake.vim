@@ -32,12 +32,7 @@ function! s:confirm(dir)
     if !g:autodirmake#is_confirm
         return 1
     endif
-
-    let hl = g:autodirmake#msg_highlight
-    if hl !=# '' && hl !=# 'None'
-        execute 'echohl' hl
-    endif
-
+    call s:apply_msg_highlight()
     try
         let prompt = '"%s" does not exist. Create? [y/N]'
         let maxlen = &columns - 1
@@ -50,10 +45,15 @@ function! s:confirm(dir)
         endif
         return s:prompt(printf(prompt, abbrdir)) =~? '^y\%[es]$'
     finally
-        if hl !=# '' && hl !=# 'None'
-            echohl None
-        endif
+        echohl None
     endtry
+endfunction
+
+function! s:apply_msg_highlight()
+    let hl = g:autodirmake#msg_highlight
+    if hl !=# '' && hl !=# 'None'
+        execute 'echohl' hl
+    endif
 endfunction
 
 function! s:prompt(msg)
@@ -66,7 +66,9 @@ function! s:prompt(msg)
             if char ==? 'y' || char ==? 'n'
                 return char
             else
+                echohl WarningMsg
                 echo "Please type either 'y' or 'n'."
+                call s:apply_msg_highlight()
                 echo a:msg
             endif
         endwhile
