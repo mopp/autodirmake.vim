@@ -10,6 +10,7 @@ set cpo&vim
 
 let g:autodirmake#is_confirm = get(g:, 'autodirmake#is_confirm', 1)
 let g:autodirmake#msg_highlight = get(g:, 'autodirmake#msg_highlight', 'None')
+let g:autodirmake#char_prompt = get(g:, 'autodirmake#char_prompt', 0)
 
 
 let s:V = vital#of('autodirmake')
@@ -47,12 +48,34 @@ function! s:confirm(dir)
             let footer_width = strlen(fnamemodify(a:dir, ':t')) + 1
             let abbrdir = s:Prelude.truncate_skipping(abbrdir, maxlen - 3, footer_width, '...')
         endif
-        return input(printf(prompt, abbrdir)) =~? '^y\%[es]$'
+        return s:prompt(printf(prompt, abbrdir)) =~? '^y\%[es]$'
     finally
         if hl !=# '' && hl !=# 'None'
             echohl None
         endif
     endtry
+endfunction
+
+function! s:prompt(msg)
+    if !g:autodirmake#char_prompt
+        return input(a:msg)
+    else
+        echo a:msg
+        while 1
+            let char = s:getchar()
+            if char ==? 'y' || char ==? 'n'
+                return char
+            else
+                echo "Please type either 'y' or 'n'."
+                echo a:msg
+            endif
+        endwhile
+    endif
+endfunction
+
+function! s:getchar(...)
+  let c = call('getchar', a:000)
+  return type(c) == type(0) ? nr2char(c) : c
 endfunction
 
 
