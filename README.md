@@ -1,5 +1,5 @@
 ## autodirmake.vim
-This is a Vim Plugin for making directory automatically when not exist file is stored.
+This is a Vim Plugin for creating non-existent directory automatically upon saving file.
 
 ## installation
     NeoBundle 'mopp/autodirmake.vim'
