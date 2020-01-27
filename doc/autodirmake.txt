@@ -22,13 +22,13 @@ INTRODUCTION                                *autodirmake-introduction*
 ------------------------------------------------------------------------------
 INSTALL                                     *autodirmake-install*
     Install the distributed files into your Vim script directory which is
-    usually $HOME/.vim. you can use Neobundle below >
+    usually $HOME/.vim. You can use Neobundle below >
         NeoBundle 'mopp/autodirmake.git'
 <
 
 ==============================================================================
 OPTIONS                                     *autodirmake-options*
-    These oprions changes Plugin behavior.
+    These options change the Plugin behavior.
     If you would like to change behavior, You add or change value in your
     vimrc.
 
