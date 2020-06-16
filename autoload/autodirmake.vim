@@ -13,7 +13,7 @@ let g:autodirmake#msg_highlight = get(g:, 'autodirmake#msg_highlight', 'None')
 let g:autodirmake#char_prompt = get(g:, 'autodirmake#char_prompt', 0)
 
 
-let s:V = vital#of('autodirmake')
+let s:V = vital#autodirmake#new()
 let s:Prelude = s:V.import('Prelude')
 unlet s:V
 
